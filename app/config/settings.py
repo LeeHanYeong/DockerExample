@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '.elasticbeanstalk.com',
+    '.amazonaws.com',
+    '.lhy.kr',
 ]
 
 
