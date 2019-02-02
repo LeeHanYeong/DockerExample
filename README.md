@@ -2,6 +2,14 @@
 
 배포와 관련된 모든 내용은 AWS의 클라우드 서비스를 기반으로 합니다.
 
+### 추천
+
+파이썬을 설치한다면 **pyenv**, **pyenv-virtualenv**로 관리합시다!
+
+문서참조 -> [pyenv와 virtualenv를 사용한 파이썬 개발환경 구성](https://lhy.kr/configuring-the-python-development-environment-with-pyenv-and-virtualenv)
+
+
+
 ### 참고문서
 
 - [subicura](https://subicura.com/)
@@ -120,4 +128,4 @@
 - **Route53**으로 서버 연결시켜보기
 
     - **Route53**에 도메인 등록
-    - 등록한 도메인의 A레코드를 **ElasticBeanstalk**환경에 연결
+    - 등록한 도메인의 A레코드를 **ElasticBeanstalk**환경에 연결 
