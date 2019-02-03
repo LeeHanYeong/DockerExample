@@ -31,21 +31,67 @@
 
 - 로컬에서 서버 띄워보기
 
-    - **brew**를 사용한 **Python3** 설치
-    - **runserver** 실행
+    - **brew**를 사용한 **Python3** 설치  
+      `brew install python3`
+    -  Django 설치  
+       `pip3 install django`  
+       `django-admin.py startproject mystie`
+    - **runserver** 실행  
+      `cd mysite`  
+      `python3 manage.py runserver`  
     - **requirements.txt** 만들기
+      `pip3 freeze > requirements.txt` or `vim requirements.txt > django==3.5.1 \n pytz==2018.9`
 
 - 로컬 Docker에서 서버 띄워보기
 
     - **Docker** 설치
-    - **python:3.7.2-slim**으로부터 **runserver** 실행해보기
+      인터넷에서 `Docker for mac` 설치.  
+    - **python:3.7.2-slim**으로부터 **runserver** 실행해보기  
+      `docker run --rm -it python:3.7.2-silm /bin/bash`  
+    -  Docker Port 설정&외부 포트연결하기.
+      `docker run --rm -it -p 7999:8000 python:3.7.2-slim /bin/bash`  
+    -  Docker Port 확인 하기.
+      `docker ps`  
 
 - 로컬 Docker Image에서 서버 띄워보기
 
-    - **Dockerfile** 작성
-    - **Dockerfile**을 사용해서 이미지 생성
-    - 생성한 이미지로 **runserver** 실행해보기
+    - **Dockerfile**작성
+      `vim Dockerfile`  
+      ```dockerfile
+      # EXAMPLE
+      # 실행할 명령어
+      RUN pip install django
 
+      # cd(change directory)
+      WORKDIR /src
+
+      RUN django-admin startproject mysite
+      WORKDIR /src/mysite
+
+      CMD python manage.py runserver 0:8000
+      ```
+    - **Dockerfile**을 사용해서 이미지 생성
+      ```Dockerfile
+      FROM       python:3.7.2-slim
+      MAINTAINER joenggyu0@gmail.COPY
+      # 설치할 패키지 정보가 담긴 파일을 Image의 /tmp/에 복사
+      COPY  requirements.txt /tmp/requirements.txt
+
+      # requirements.txt 파일을 이용해서 Images에 파이썬 ㅋ패키지 설치
+      RUN pip install -r /tmp/requirements.txt
+
+      # 현재 디렉토리의 모든 내용을 Image의 /srv/경로에 복사
+      COPY . /srv/project/
+
+      #복사한 소스 경로로 이동후 개발서버를 8000번 포트로 실행
+      WORKDIR /srv/project
+
+      CMD python manage.py runserver 0:8000
+      ```
+    - 생성한 이미지로 **runserver** 실행해보기
+      `docker build -t mysite .`  
+      build를 어디서 하는가에 대한 디렉토리 이슈 조심!
+      `docker run --rm -it -p 7999:8000 mysite`  
 - EC2에서 서버 띄워보기
 
     - EC2 생성하기
